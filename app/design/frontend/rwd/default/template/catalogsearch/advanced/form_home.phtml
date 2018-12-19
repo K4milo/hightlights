@@ -1,0 +1,129 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Catalog advanced search form
+ *
+ * @see Mage_CatalogSearch_Block_Advanced_Form
+ */
+?>
+<?php $maxQueryLength= $this->helper('catalogsearch')->getMaxQueryLength();?>
+<div class="page-title">
+    <h1><?php echo $this->__('Catalog Advanced Search') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<form action="<?php echo $this->getUrl('')?>busqueda-avanzada.html" method="get" id="form-validate">
+    <div class="fieldset advanced-search">
+        <h2 class="legend">Configuración de búsqueda</h2>
+        <ul class="form-list" id="advanced-search-list">
+            <li class="odd">
+                <label for="uso">Uso</label>
+                    <div class="input-box">
+                        <select class="form-group" id="uso" name="uso">
+                            <option value="">- Seleccione -</option>
+                                <?php
+                                //$category = Mage::registry("current_category");
+                                $category = Mage::getModel('catalog/category')->load(2);
+                                if($category->getId()){
+                                $categories = $category->getCollection()
+                                        ->addAttributeToSelect(array('name', 'image'))
+                                        ->addAttributeToFilter('is_active', 1)
+                                        ->addIdFilter($category->getChildren())
+                                        ->addAttributeToSort('position');//sort by position
+                                ?>
+                                      <?php foreach ($categories as $category): ?>
+                                        <?php if($category->getName() === "Proyectos" || $category->getName() === "Inspirate" || $category->getName() === "Montaje" || $category->getName() === "Búsqueda"){ ?>
+                                            
+                                        <?php }else{ ?>
+                                            <optgroup label="<?php echo $category->getName() ?>">
+                                            <?php 
+                                            $subcatID = $category->getId();
+
+                                            $subcategory = Mage::getModel('catalog/category')->load($subcatID);
+                                            $subcategories = $subcategory->getCollection()
+                                                    ->addAttributeToSelect(array('name', 'image'))
+                                                    ->addAttributeToFilter('is_active', 1)
+                                                    ->addIdFilter($category->getChildren())
+                                                    ->addAttributeToSort('position');//sort by position
+                                            ?>
+                                            <?php foreach ($subcategories as $subcategory): ?>
+                                            <option value="<?php echo $subcategory->getId() ?>"><?php echo $subcategory->getName() ?></option>
+                                            <?php endforeach; ?>
+
+                                            
+                                        <?php }?>
+                                      <?php endforeach; ?>
+                                  </ul>
+                                </div>
+                                <?php } ?>
+                        </select>
+                    </div>
+            </li>
+            <li class="last even">
+                <label for="tipo_montaje">Tipo Montaje</label>
+                <div class="input-box">
+                    <select class="form-group" name="tipo_montaje" id="tipo_montaje">
+                        <option value="">- Seleccione -</option>
+                            <?php
+                            //$category = Mage::registry("current_category");
+                            $category = Mage::getModel('catalog/category')->load(97);
+                            if($category->getId()){
+                            $categories = $category->getCollection()
+                                    ->addAttributeToSelect(array('name', 'image'))
+                                    ->addAttributeToFilter('is_active', 1)
+                                    ->addIdFilter($category->getChildren())
+                            ?>
+                                    <?php foreach ($categories as $category): ?>
+                                    
+                                        <option value="<?php echo $category->getId() ?>"><?php echo $category->getName() ?></option>
+                                    
+                                    <?php endforeach; ?>
+                              </ul>
+                            </div>
+                            <?php } ?>
+                    </select>
+                </div>
+            </li>
+        </ul>
+        <script type="text/javascript">decorateList('advanced-search-list')</script>
+    </div>
+    <div class="buttons-set">
+        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Search')) ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+//]]>
+</script>
+
+
+
+
+
+
+

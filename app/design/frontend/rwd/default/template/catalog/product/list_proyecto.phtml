@@ -1,0 +1,80 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default_proyecto
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+/* @var $this Mage_Catalog_Block_Product_List */
+?>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+?>
+
+<?php $_collectionSize = $_productCollection->count() ?>
+<?php $_columnCount = $this->getColumnCount(); ?>
+
+<div class="row">
+    <div class="col-sm-12">
+        <?php // Grid Mode ?>
+
+        <?php if (count($_productCollection) > 0){ ?>
+            <?php foreach ($_productCollection as $_product): ?>
+                <div class="col-xs-12 col-sm-6 col-md-4 obj-proyecto">
+                    <a class="foto-proyecto" href="<?php echo $_product->getProductUrl() ?>" style="background-image:url(<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->keepFrame(false)->resize($_imgSize); ?>)">
+                               
+                    </a>    
+                    <div class="subtitulo">
+                        <h2 onclick="location.href = '<?php echo $_product->getProductUrl() ?>';"><?php echo htmlspecialchars($_product->getName()) ?></h2>
+                         <?php
+
+                        $product_id = $_product->getId();
+                        $_resource = Mage::getSingleton('catalog/product')->getResource();
+                        $ciudad = $_resource->getAttributeRawValue($product_id,  'ciudad', Mage::app()->getStore());
+                        $descarga = $_resource->getAttributeRawValue($product_id,  'descarga', Mage::app()->getStore());
+                        ?>
+                        <p><?php echo $ciudad ?></p>
+                        <?php 
+                            if($descarga != "") {
+                                if($descarga != "proyectos/"){
+                        ?>
+                          <a class="download" target="_blank" href="<?php echo $this->getUrl('').$descarga; ?>"><img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDYxMi4wNzQgNjEyLjA3NCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjEyLjA3NCA2MTIuMDc0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCI+CjxnPgoJPHBhdGggZD0iTTMwNi4wMzcsMEMxMzYuOTk3LDAsMCwxMzYuOTk3LDAsMzA2LjAzN3MxMzYuOTk3LDMwNi4wMzcsMzA2LjAzNywzMDYuMDM3czMwNi4wMzctMTM2Ljk5NywzMDYuMDM3LTMwNi4wMzcgICBTNDc1LjA3NywwLDMwNi4wMzcsMHogTTMwNi4wMzcsNTgyLjQwNWMtMTUyLjIwMywwLTI3Ni4zNjgtMTI0LjE2NS0yNzYuMzY4LTI3Ni4zNjhTMTUzLjgzNCwyOS42NjksMzA2LjAzNywyOS42NjkgICBzMjc2LjM2OCwxMjQuMTY1LDI3Ni4zNjgsMjc2LjM2OFM0NTguMjQsNTgyLjQwNSwzMDYuMDM3LDU4Mi40MDV6IE00MjUuMzgxLDMxNS42OGM1LjYzNyw1LjYzNyw1LjYzNywxNS4yMDUsMCwyMC44NDMgICBsLTEwOC45NiwxMDkuNzAyYy0wLjgxNiwwLjgxNi0xLjYzMiwxLjYzMi0yLjM3NCwxLjYzMmwtMC44MTYsMC44MTZjLTAuODE2LDAtMC44MTYsMC44MTYtMS42MzIsMC44MTYgICBjLTAuODE2LDAtMC44MTYsMC0xLjYzMiwwLjgxNmMtMC44MTYsMC0wLjgxNiwwLTEuNjMyLDBjLTAuODE2LDAtMS42MzIsMC0zLjE4OSwwYy0wLjgxNiwwLTEuNjMyLDAtMy4xODksMCAgIGMtMC44MTYsMC0wLjgxNiwwLTEuNjMyLDBjLTAuODE2LDAtMC44MTYsMC0xLjYzMi0wLjgxNmMtMC44MTYsMC0wLjgxNi0wLjgxNi0xLjYzMi0wLjgxNmMwLDAtMC44MTYsMC0wLjgxNi0wLjgxNiAgIGMtMC44MTYtMC44MTYtMS42MzItMC44MTYtMi4zNzQtMS42MzJMMTg1Ljg3NywzMzUuNzA2Yy01LjYzNy01LjYzNy01LjYzNy0xNS4yMDUsMC0yMC44NDNzMTUuMjA1LTUuNjM3LDIwLjg0MywwbDg0LjkyOCw4NC45MjggICBWMTY1LjAzNWMwLTguMDExLDYuMzc5LTE0LjM5LDE0LjM5LTE0LjM5czE0LjM5LDYuMzc5LDE0LjM5LDE0LjM5djIzNC42ODNsODMuMzctODMuMjk2ICAgQzQxMC4xNzYsMzEwLjA0Miw0MTkuODE4LDMxMC4wNDIsNDI1LjM4MSwzMTUuNjh6IiBmaWxsPSIjODA4MDgwIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" /></a>
+                        <?      
+                                };
+                            };
+                        ?>
+                    </div>
+                </div>
+             <?php endforeach ?> 
+        <?php }else{ ?>
+        <p>No disponemos de proyectos en esta categoría.</p>
+        <?php } ?>
+    </div>
+</div>
+

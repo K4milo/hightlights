@@ -1,0 +1,190 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Category left navigation
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+<?php if (!Mage::registry('current_category')) return ?>
+<?php
+
+$category_0 = Mage::registry('current_category');
+$parentId = Mage::getModel('catalog/category')->load($category_0->getId())->getParentId();
+//echo $parentId; // $parentId will print your current category’s parent Id 
+
+$category = Mage::getModel('catalog/category')->load($parentId);
+//$subcategories = $category->getChildrenCategories();
+
+?>
+<?php $_categories = $category->getChildrenCategories() ?>
+<?php $_count = is_array($_categories)?count($_categories):$_categories->count(); ?>
+<?php if($_count): ?>
+<div class="block block-layered-nav block-layered-nav--no-filters">
+    <div class="block-title">
+        <strong>Filtrar Por</strong>
+        <?php /*<strong><span><?php echo $this->__('Browse By') ?></span></strong>*/ ?>
+    </div>
+    <div class="block-content toggle-content open">
+        <p class="block-subtitle block-subtitle--filter"><?php echo $this->__('Por Categoría') ?></p>
+        <dl id="narrow-by-list2">
+            <dt><?php echo $this->__('Category') ?></dt>
+            <dd>
+                <ol>
+                <?php foreach ($_categories as $_category): ?>
+                    <?php if($_category->getIsActive()): ?>
+                        <?php if($_category->getName() === "Proyectos" || 
+                                 $_category->getName() === "Inspirate" || 
+                                 $_category->getName() === "Montaje" || 
+                                 $_category->getName() === "Búsqueda" || 
+                                 $_category->getName() === "Familia"||
+                                 $_category->getName() === "Todos los productos"|| 
+                                 $_category->getName() === "Espacios"){ ?>
+                                            
+                        <?php }else{ ?>
+                        <li>
+                            <a href="<?php echo $this->getCategoryUrl($_category) ?>"<?php if ($this->isCategoryActive($_category)): ?> class="current"<?php endif; ?>>
+                                <?php echo $this->escapeHtml($_category->getName()) ?>
+                                <span class="count">(<?php echo $_category->getProductCount() ?>)</span>
+                            </a>
+                        </li>
+                        <?php }?>
+                    
+                    <?php endif; ?>
+                <?php endforeach ?>
+                </ol>
+            </dd>
+        </dl>
+        <script type="text/javascript">decorateDataList('narrow-by-list2')</script>
+    </div>
+
+
+    <div class="block-content toggle-content open">
+        <p class="block-subtitle block-subtitle--filter"><?php echo $this->__('Advanced Search') ?></p>
+        <dl id="narrow-by-list2">
+            <dt><?php echo $this->__('Advanced Search') ?></dt>
+            <dd>
+                <ol>
+                    <li>
+                        <?php /*
+                        <label for="uso-adv-left">Espacios</label><br>
+                        <select id="uso-adv-left" name="uso-adv-left" onchange="if (this.value) window.location.href=this.value">
+                            <option>-Seleccione</option>
+                                <?php
+                                //$category = Mage::registry("current_category");
+                                $category = Mage::getModel('catalog/category')->load(2);
+                                if($category->getId()){
+                                $categories = $category->getCollection()
+                                        ->addAttributeToSelect(array('name', 'image'))
+                                        ->addAttributeToFilter('is_active', 1)
+                                        ->addIdFilter($category->getChildren())
+                                        ->addAttributeToSort('position');//sort by position
+                                ?>
+                                      <?php foreach ($categories as $category): ?>
+                                        <?php if($category->getName() === "Proyectos" || $category->getName() === "Inspirate" || $category->getName() === "Montaje" || $category->getName() === "Búsqueda" || $category->getName() === "Todos los productos"|| $category->getName() === "Espacios"){ ?>
+                                            
+                                        <?php }else{ ?>
+                                            <optgroup label="<?php echo $category->getName() ?>">
+                                            <?php 
+                                            $subcatID = $category->getId();
+
+                                            $subcategory = Mage::getModel('catalog/category')->load($subcatID);
+                                            $subcategories = $subcategory->getCollection()
+                                                    ->addAttributeToSelect(array('name', 'image'))
+                                                    ->addAttributeToFilter('is_active', 1)
+                                                    ->addIdFilter($category->getChildren())
+                                                    ->addAttributeToSort('position');//sort by position
+                                            ?>
+                                            <?php foreach ($subcategories as $subcategory): ?>
+                                            <option value="<?php echo $subcategory->getUrl() ?>"><?php echo $subcategory->getName() ?></option>
+                                            <?php endforeach; ?>
+
+                                            
+                                        <?php }?>
+                                      <?php endforeach; ?>
+                                  </ul>
+                                </div>
+                                <?php } ?>
+                        </select>
+                        */?>
+                        <label for="montaje-adv-left">Tipo de Montaje</label>
+                        <select name="montaje-adv-left" id="montaje-adv-left" onchange="if (this.value) window.location.href=this.value">
+                            <option>-Seleccione</option>
+                                <?php
+                                //$category = Mage::registry("current_category");
+                                $category = Mage::getModel('catalog/category')->load(97);
+                                echo $category;
+                                if($category->getId()){
+                                $categories = $category->getCollection()
+                                        ->addAttributeToSelect(array('name', 'image'))
+                                        ->addAttributeToFilter('is_active', 1)
+                                        ->addIdFilter($category->getChildren())
+                                        ->addAttributeToSort('position');//sort by position
+                                ?>
+                                        <?php foreach ($categories as $category): ?>
+                                        
+                                            <option value="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></option>
+                                        
+                                        <?php endforeach; ?>
+                                  </ul>
+                                </div>
+                                <?php } ?>
+                        </select>
+                        <label for="montaje-adv-left">Familia</label>
+                        <select name="montaje-adv-left" id="montaje-adv-left" onchange="if (this.value) window.location.href=this.value">
+                            <option>-Seleccione</option>
+                                <?php
+                                //$category = Mage::registry("current_category");
+                                $category = Mage::getModel('catalog/category')->load(146);
+                                echo $category;
+                                if($category->getId()){
+                                $categories = $category->getCollection()
+                                        ->addAttributeToSelect(array('name', 'image'))
+                                        ->addAttributeToFilter('is_active', 1)
+                                        ->addIdFilter($category->getChildren())
+                                        ->addAttributeToSort('position');//sort by position
+                                ?>
+                                        <?php foreach ($categories as $category): ?>
+                                        
+                                            <option value="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></option>
+                                        
+                                        <?php endforeach; ?>
+                                  </ul>
+                                </div>
+                                <?php } ?>
+                        </select>
+                    </li>
+                </ol>
+            </dd>
+        </dl>
+        <script type="text/javascript">decorateDataList('narrow-by-list2')</script>
+        <script type="text/x-magento-init">
+            {"*": {"Dfe_Markdown/main": {}}}
+        </script>
+    </div>
+</div>
+<?php endif; ?>

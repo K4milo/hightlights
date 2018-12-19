@@ -1,0 +1,262 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+
+
+
+<nav id="header-nav" class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="header-language-background">
+        <div class="header-language-container">
+            <div class="store-language-container">
+                <?php echo $this->getChildHtml('store_language') ?>
+            </div>
+
+            <!-- Cart -->
+
+            <?/*<div class="header-minicart">
+                <?php echo $this->getChildHtml('minicart_head'); ?>
+            </div>*/ ?>
+
+            <a href="#header-nav" class="skip-link skip-nav">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Menu'); ?></span>
+            </a>
+
+            <a href="#header-search" class="skip-link skip-search">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Search'); ?></span>
+            </a>
+
+            <?php echo $this->getChildHtml('currency_switcher') ?>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="menutopsearch"><?php echo $this->getChildHtml('topSearch') ?></li>
+                <li class="menutop"><a href="<?php echo $this->getUrl('contacts') ?>" data-target-element="#header-account"><span class="glyphicon glyphicon-comment"></span> <?php echo "Contáctenos" //echo $this->__('Account');?></a></li>
+                <li class="menutop"><a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account"><span class="glyphicon glyphicon-user"></span> <?php echo "Registrese" //echo $this->__('Account');?></a></li>
+                <li class="menutop"><a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" data-target-element="#header-account"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="<?php echo $this->getUrl('') ?>">
+            <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small"/>
+        </a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="menu-item dropdown dropdown-submenu"><a class="proyectos_link" target="_self" href="<?php echo $this->getUrl() ?>">Inicio</a>    
+            </li>
+           <!--  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Productos<b class="caret"></b></a>-->
+             <li class="dropdown"><a href="<?php echo $this->getUrl() ?>productos.html" class="dropdown-toggle" data-toggle="">Productos<b class="caret"></b></a> 
+                <ul class="dropdown-menu">
+                    <?php
+                    //$category = Mage::registry("current_category");
+                    $category = Mage::getModel('catalog/category')->load(146);
+                    if($category->getId()){
+                    $categories = $category->getCollection()
+                            ->addAttributeToSelect(array('name', 'image'))
+                            ->addAttributeToFilter('is_active', 1)
+                            ->addIdFilter($category->getChildren())
+                            ->addAttributeToSort('position');//sort by position
+                    ?>
+                          <?php foreach ($categories as $category): ?>
+                            <?php if($category->getName() === "Proyectos" || $category->getName() === "Inspirate" || $category->getName() === "Montaje" || $category->getName() === "Búsqueda"){ ?>
+                                
+                            <?php }else{?>
+                                <li><a href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a></li>
+                            <?php }?>
+                          <?php endforeach; ?>
+                    <?php } ?>                   
+                </ul>
+            </li>
+            
+             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Inspírate<b class="caret"></b></a>
+            <!-- <li class="menu-item dropdown"><a href="#" class="menu-item dropdown-toggle" data-toggle="">Inspírate<b class="caret"></b></a> -->
+                <ul class="dropdown-menu">
+                   <li class="menu-item dropdown dropdown-submenu"><a class="proyectos_link" href="<?php echo $this->getUrl('') ?>proyectos.html">Galería de Proyectos</a>    
+                    </li>
+                    <?php
+                    //$category = Mage::registry("current_category");
+                    $category = Mage::getModel('catalog/category')->load(121);
+                    $categories = $category->getCollection()
+                            ->addAttributeToSelect(array('name', 'image'))
+                            ->addAttributeToFilter('is_active', 1)
+                            ->addIdFilter($category->getChildren())
+                            ->addAttributeToSort('position');//sort by position
+                    ?>
+                    <?php foreach ($categories as $category): ?>
+                        <?php $products = Mage::getResourceModel('catalog/product_collection')
+                                ->setStoreId(Mage::app()->getStore()->getId())
+                                ->addCategoryFilter($category); ?>
+                        <?php if(count($products) != 0){ ?>
+                        <li class="menu-item dropdown dropdown-submenu"><a href="<?php echo $category->getUrl() ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category->getName() ?><b class="caret"></b></a>
+                            <ul class="dropdown-menu subcat-menu">
+                                <?php foreach ($products as $_product): ?>
+                                    <?php $obj = Mage::getModel('catalog/product');
+                                    $_product0 = $obj->load($_product->getId()); ?>
+                                    <li class="menu-item"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $_product0->getName(); ?></a></li>   
+                                <?php endforeach ?>  
+                            </ul>
+                        </li>   
+                        <?php }else{?>
+                            <li><a href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a></li>
+                        <?php }?>
+                    <?php endforeach; ?>                 
+                </ul>
+            </li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Espacios<b class="caret"></b></a>
+            <!-- <li class="menu-item dropdown"><a href="#" class="menu-item dropdown-toggle" data-toggle="">Espacios<b class="caret"></b></a> -->
+                <ul class="dropdown-menu">
+                    <?php
+                    //$category = Mage::registry("current_category");
+                    $category = Mage::getModel('catalog/category')->load(132);
+                    $categories = $category->getCollection()
+                            ->addAttributeToSelect(array('name', 'image'))
+                            ->addAttributeToFilter('is_active', 1)
+                            ->addIdFilter($category->getChildren())
+                            ->addAttributeToSort('position');//sort by position
+                    ?>
+                    <?php foreach ($categories as $category): ?>
+                        <?php $products = Mage::getResourceModel('catalog/product_collection')
+                                ->setStoreId(Mage::app()->getStore()->getId())
+                                ->addCategoryFilter($category); ?>
+                        <?php if(count($products) != 0){ ?>
+                        <li class="menu-item dropdown dropdown-submenu"><a href="<?php echo $category->getUrl() ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $category->getName() ?><b class="caret"></b></a>
+                            <ul class="dropdown-menu subcat-menu">
+                                <?php foreach ($products as $_product): ?>
+                                    <?php $obj = Mage::getModel('catalog/product');
+                                    $_product0 = $obj->load($_product->getId()); ?>
+                                    <li class="menu-item"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $_product0->getName(); ?></a></li>   
+                                <?php endforeach ?>  
+                            </ul>
+                        </li>   
+                        <?php }else{?>
+                            <li><a href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a></li>
+                        <?php }?>
+                    <?php endforeach; ?>
+                    <li><a class="proyectos_link" target="_blank" href="<?php echo $this->getUrl()."highlightstour360/index.html" ?>">Tour 360º High Lights</a></li>            
+                </ul>
+            </li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Automatización<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+
+                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Control Lumínico<b class="caret"></b></a>
+                        <ul class="dropdown-menu subcat-menu">
+                            <li><a href="<?php echo $this->getUrl('control-luminico-residencial') ?>">Residencial</a></li>
+                            <li><a href="<?php echo $this->getUrl('control-luminico-comercial')?>">Comercial</a></li>                          
+                        </ul>
+                    </li>
+                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Entretenimiento<b class="caret"></b></a>
+                        <ul class="dropdown-menu subcat-menu">
+                            <li><a href="<?php echo $this->getUrl('entretenimiento-residencial') ?>">Residencial</a></li>
+                            <li><a href="<?php echo $this->getUrl('entretenimiento-comercial')?>">Comercial</a></li>                          
+                        </ul>
+                    </li>
+                    <li><a href="<?php echo $this->getUrl('control-cortinas') ?>">Control cortinas</a></li>
+                    <li><a href="#">Control de temperatura</a></li>
+                    <li><a href="#">CCTV</a></li>
+                    <li><a href="#">Acceso</a></li>
+                    <li><a href="<?php echo $this->getUrl('integracion') ?>">Integración</a></li>
+                    <li><a href="<?php echo $this->getUrl('quantum') ?>">Quantum</a></li> 
+                    <li><a href="<?php echo $this->getUrl('vive') ?>">Vive</a></li>
+                    <li><a href="<?php echo $this->getUrl('audio-video') ?>">Audio y Vídeo</a></li>                  
+                </ul>
+           </li>
+        
+             <li class="dropdown"><a class="proyectos_link" href="/tensoflex" >Tensoflex</a> </li>
+             <li class="dropdown"><a class="proyectos_link" href="/backlights" >Backlights</a> </li>
+
+     <!--        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Servicios<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo $this->getUrl('servicio-tecnico') ?>">Servicio Técnico</a></li>
+                    <li><a href="<?php echo $this->getUrl('programacion')?>">Programación</a></li>
+                    <li><a href="<?php echo $this->getUrl('consultorias')?>">Consultorías</a></li>                            
+                </ul>
+            </li> -->
+            <li class="dropdown"><a class="proyectos_link" href="<?php echo $this->getUrl('catalogoshl') ?>">Descargas</a>   </li>
+          <li class="dropdown"><a class="proyectos_link" href="https://highlights.com.co/novedades.html" >Novedades</a> </li>
+          <li class="dropdown"><a class="proyectos_link" href="https://highlights.com.co/promociones.html" >Promociones</a> </li>
+        </ul>
+        
+    </div><!-- /.navbar-collapse -->
+
+    <ul class="dropdown-menu">
+                    <li><a href="">Novedades</a></li>
+                    <li><a href="https://highlights.com.co/promociones.html">Promociones</a></li>                            
+                </ul>
+</nav>
+<?php
+/*
+
+<header id="header" class="page-header">
+    
+
+    <div class="page-header-container">
+
+        <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
+              // See app.js for details ?>
+        <div class="store-language-container"></div>
+
+        <!-- Skip Links -->
+
+        <div class="skip-links">
+            
+
+            <div class="account-cart-wrapper">
+
+                
+            </div>
+
+
+        </div>
+
+        <!-- Search -->
+
+        <div id="header-search" class="skip-content">
+            <?php echo $this->getChildHtml('topSearch') ?>
+        </div>
+
+        <!-- Account -->
+
+        <div id="header-account" class="skip-content">
+            <?php echo $this->getChildHtml('topLinks') ?>
+        </div>
+    </div>
+</header>
+*/
+
+
+ echo $this->getChildHtml('topContainer'); ?>

@@ -1,0 +1,186 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="page-title">
+    <h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
+</div>
+<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post" enctype="multipart/form-data">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h2>
+        <p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+        <ul class="form-list col-xs-12 col-sm-6 col-lg-6">
+            <li class="fields">
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Name') ?></label>
+                    <div class="input-box">
+                        <input name="name" id="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="surname" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Apellido') ?></label>
+                    <div class="input-box">
+                        <input name="surname" id="surname" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Apellido')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                    </div>
+                    </div>
+               <!-- <div class="field">
+                    <label for="tipodocu"><?php echo Mage::helper('contacts')->__('Tipo de Documento') ?></label> 
+                    <div class="input-box">
+                        <select name="tipodocu" id="tipodocu" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Tipo de Documento')) ?>">
+                            <option value="">-Selecciona-</option>
+                            <option value="Producto">CC</option>
+                            <option value="Servicio">Cédula de Extranjería</option>
+                            <option value="Datos Personales">Pasaporte</option>
+                            <option value="Datos Personales">NIT</option>
+                        </select>
+                    </div>
+                </div> -->
+           <!-- <div class="field">
+                    <label for="numdocu"><?php echo Mage::helper('contacts')->__('Número de Documento') ?></label>
+                    <div class="input-box">
+                        <input name="numdocu" id="numdocu" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Número de Documento')) ?>" value="" class="input-text" type="text" />
+                    </div>
+                    
+                </div> -->
+                
+            </li>
+            <li>
+                <div class="field">
+                    <label for="email" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Email') ?></label>
+                    <div class="input-box">
+                        <input name="email" id="email" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Email')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                    </div>
+                </div>
+                <label for="telephone" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Telephone') ?></label>
+                <div class="input-box">
+                    <input name="telephone" id="telephone" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Telephone')) ?>" value="" class="input-text" type="tel" />
+                </div>
+            </li>
+        </ul>
+        <ul class="form-list col-xs-12 col-sm-6 col-lg-6">
+            
+            <li>
+                <label for="ciudad" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Ciudad') ?></label>
+                <div class="input-box">
+                    <input name="ciudad" id="ciudad" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Ciudad')) ?>" value="" class="input-text" type="text" />
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="profesion" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Sector de actividad') ?></label>
+                    <div class="input-box">
+                        <select name="profesion" id="profesion" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Sector de actividad')) ?>">
+                            <option value="">-Selecciona-</option>
+                            <option value="Arquitecto">Arquitecto</option>
+                            <option value="Constructora">Constructora</option>
+                            <option value="Ingeniero Electrónico">Ingeniero Electrónico</option>
+                            <option value="Ingeniero Industrial">Ingeniero Industrial</option>
+                            <option value="Diseñador">Diseñador</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="temas" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Temas de Interés') ?></label>
+                    <div class="input-box">
+                        <select name="temas" id="temas" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Temas de Interés')) ?>">
+                            <option value="">-Selecciona-</option>
+                            <option value="Iluminación">Iluminación</option>
+                            <option value="Instalación">Instalación</option>
+                            <option value="Servicio al cliente">Servicio al cliente</option>
+                            <option value="Programación">Programación</option>
+                            <option value="Consultoría">Consultoría</option>
+                            <option value="Automatización">Automatización</option>
+                            <option value="Tensoflex">Tensoflex</option>
+                            <option value="BackLights">BackLights</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            <li class="wide">
+                <label for="comment" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Message') ?></label>
+                <div class="input-box">
+                    <textarea name="comment" id="comment" style="width: 365px; max-width: 100%;" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>
+            <li>
+                <small>Los tiempos de respuesta, están sujetos a lo establecido en la Ley 1581 de 2012, para datos personales y/o Ley 1480 del 2011 (Estatuto del Consumidor) para productos y servicios.</small>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <div class="field">
+            <div class="input-box" style="white-space: nowrap; overflow: hidden;">
+                <input type="checkbox" name="terminos" value="">
+                <label for="terminos" class="required" style="display: inline-flex; font-size: 11px;"><p style="line-height: 20px; padding: 5px 0px;">Acepto </p><a href="<?php echo $this->getUrl() ?>politicas/ptdp-hl.pdf"  target="_blank">política de tratamiento de datos personales</a></label>
+            </div>
+        </div>
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Submit')) ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('Submit') ?></span></span></button>
+    </div>
+           
+            <div align='left'>
+            <p>
+                <small>
+<div class="row">
+<div class="col-sm-12">
+<h2>Sedes Colombia</h2>
+<hr /></div>
+</div>
+<div class="row">
+<div class="col-sm-3">
+<h3>Bogot&aacute; D.C.</h3>
+<p>PBX:&nbsp;<a href="tel:+5716466000">(+57) (1) 6466000</a>&nbsp;&nbsp;&nbsp;&nbsp;<br />Fax:&nbsp;<a href="tel:+5716466000">(+57) (1) 6466000</a><br /><a href="https://www.google.com.co/maps/place/4%C2%B040'33.0%22N+74%C2%B003'34.1%22W/@4.6756642,-74.0597672,20z/data=!4m5!3m4!1s0x0:0x0!8m2!3d4.6758333!4d-74.0594722" target="_blank">AV. Cra 20 (Autopista Norte) #87-29</a><br /><a href="mailto:ventasbogota@highlights.com.co"></a><a href="mailto:ventasbogota@highlights.com.co" target="_blank">ventasbogota@highlights.com.co</a></p>
+</div>
+<div class="col-sm-3">
+<h3><span><strong><span>Medell&iacute;n</span></strong></span></h3>
+<p>PBX:&nbsp;&nbsp;<a href="tel:+5744035530">(+57) (4) 4035530</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /><a href="https://www.google.com.co/maps/place/6&deg;13'03.8&quot;N+75&deg;34'37.1&quot;W/@6.2177113,-75.5775162,19z/" target="_blank">Carrera 49 N. 16-16 Av. del rio</a><br /><a href="mailto:ventasmedellin@highlights.com.co" target="_blank">ventasmedellin@highlights.com.co</a></p>
+</div>
+<div class="col-sm-3">
+<h3><span><strong><span>Barranquilla</span></strong></span></h3>
+<p>PBX:&nbsp;<a href="tel:+5753562411">(+57) (5) 3562411</a><br />FAX:&nbsp;<a href="tel:+5753452413">(+57) (5) 3452413</a><br /><a href="https://www.google.com.co/maps/place/11%C2%B000'19.8%22N+74%C2%B049'00.3%22W/" target="_blank">CRA 51B No 82&ndash;283&nbsp;<br />Sector prado&nbsp;alto&nbsp;</a><br /><a href="mailto:ventasbarranquilla@highlights.com.co" target="_blank">ventasbarranquilla@highlights.com.co</a></p>
+</div>
+<div class="col-sm-3">
+<h3><span><strong>Cali</strong></span></h3>
+<p><span>PBX:&nbsp;<a href="tel:+5726680430">(+57) (2) 6680430</a><br /><a href="https://www.google.com.co/maps/place/3&deg;27'57.2&quot;N+76&deg;31'53.8&quot;W/@3.4658109,-76.5317009,19.75z" target="_blank">Av. 7 Norte #23N - 84</a><br /> Barrio Santa Monica<br />Por favor solicitar cita previa<br /><a href="mailto:ventascali@highlights.com.co" target="_blank">ventascali@highlights.com.co</a><a href="mailto:ventascali@highlights.com.co"><br /></a></span></p>
+</div>
+</small>
+           </p>
+</div>
+</form>
+<style type="text/css">
+    .col2-left-layout .col-main {
+        float: right !important;
+        padding-right: 0 !important;
+        width: 100% !important;
+    }
+</style>
+<script type="text/javascript">
+//<![CDATA[
+    var contactForm = new VarienForm('contactForm', true);
+//]]>
+</script>

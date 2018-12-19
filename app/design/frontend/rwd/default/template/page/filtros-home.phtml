@@ -1,0 +1,122 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2017 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Category left navigation
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+
+?>
+<?php /*
+<div class="form-group">
+<label for="uso-adv">Espacios</label><br>
+<select class="form-group" id="uso-adv" name="uso-adv" onchange="if (this.value) window.location.href=this.value">
+    <option>-Seleccione</option>
+        <?php
+        //$category = Mage::registry("current_category");
+        $category = Mage::getModel('catalog/category')->load(2);
+        if($category->getId()){
+        $categories = $category->getCollection()
+                ->addAttributeToSelect(array('name', 'image'))
+                ->addAttributeToFilter('is_active', 1)
+                ->addIdFilter($category->getChildren())
+                ->addAttributeToSort('position');//sort by position
+        ?>
+              <?php foreach ($categories as $category): ?>
+                <?php if($category->getName() === "Proyectos" || $category->getName() === "Inspirate" || $category->getName() === "Montaje" ||  $category->getName() === "Búsqueda" ||  $category->getName() === "Todos los productos"){ ?>
+                    
+                <?php }else{ ?>
+                    <optgroup label="<?php echo $category->getName() ?>">
+                    <?php 
+                    $subcatID = $category->getId();
+
+                    $subcategory = Mage::getModel('catalog/category')->load($subcatID);
+                    $subcategories = $subcategory->getCollection()
+                            ->addAttributeToSelect(array('name', 'image'))
+                            ->addAttributeToFilter('is_active', 1)
+                            ->addIdFilter($category->getChildren())
+                            ->addAttributeToSort('position');//sort by position
+                    ?>
+                    <?php foreach ($subcategories as $subcategory): ?>
+                    <option value="<?php echo $subcategory->getUrl() ?>"><?php echo $subcategory->getName() ?></option>
+                    <?php endforeach; ?>
+
+                    
+                <?php }?>
+              <?php endforeach; ?>
+          </ul>
+        </div>
+        <?php } ?>
+</select>
+</div>
+*/ ?>
+<div class="form-group">
+<label for="montaje-adv">Familia</label>
+<select class="form-group" name="montaje-adv" id="montaje-adv" onchange="if (this.value) window.location.href=this.value">
+    <option>-Seleccione</option>
+        <?php
+        //$category = Mage::registry("current_category");
+        $category = Mage::getModel('catalog/category')->load(146);
+        if($category->getId()){
+        $categories = $category->getCollection()
+                ->addAttributeToSelect(array('name', 'image'))
+                ->addAttributeToFilter('is_active', 1)
+                ->addIdFilter($category->getChildren())
+        ?>
+                <?php foreach ($categories as $category): ?>
+                
+                    <option value="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></option>
+                
+                <?php endforeach; ?>
+          </ul>
+        </div>
+        <?php } ?>
+</select>
+</div>
+<div class="form-group">
+<label for="montaje-adv">Tipo de Montaje</label>
+<select class="form-group" name="montaje-adv" id="montaje-adv" onchange="if (this.value) window.location.href=this.value">
+    <option>-Seleccione</option>
+        <?php
+        //$category = Mage::registry("current_category");
+        $category = Mage::getModel('catalog/category')->load(97);
+        if($category->getId()){
+        $categories = $category->getCollection()
+                ->addAttributeToSelect(array('name', 'image'))
+                ->addAttributeToFilter('is_active', 1)
+                ->addIdFilter($category->getChildren())
+        ?>
+                <?php foreach ($categories as $category): ?>
+                
+                    <option value="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></option>
+                
+                <?php endforeach; ?>
+          </ul>
+        </div>
+        <?php } ?>
+</select>
+</div>
