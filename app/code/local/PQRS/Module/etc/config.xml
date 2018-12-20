@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <PQRS_Module>
+      <version>0.0.1</version>
+    </PQRS_Module>
+  </modules>
+  <frontend>
+       <routers>
+          <brochure>
+              <use>standard</use>
+              <args>
+                 <module>PQRS_Module</module>
+                 <frontName>pqrs</frontName>
+              </args>
+           </brochure>
+       </routers>
+       <layout>
+            <updates>
+                <PQRS_Module>
+                    <file>pqrs.xml</file>
+                </PQRS_Module>                
+            </updates>
+        </layout>
+    </frontend>
+  <global>
+    <helpers>
+      <module>
+        <class>PQRS_Module_Helper</class>
+      </module>
+    </helpers>
+  </global>
+</config>

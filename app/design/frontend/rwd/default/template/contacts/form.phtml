@@ -131,6 +131,11 @@
                 <small>Los tiempos de respuesta, están sujetos a lo establecido en la Ley 1581 de 2012, para datos personales y/o Ley 1480 del 2011 (Estatuto del Consumidor) para productos y servicios.</small>
             </li>
         </ul>
+        <span class="avoid-spam">
+            <?php
+                echo $this->getChildHtml('form_fields_before'); 
+            ?>
+        </span>
     </div>
     <div class="buttons-set">
         <div class="field">
@@ -171,6 +176,7 @@
 </small>
            </p>
 </div>
+
 </form>
 <style type="text/css">
     .col2-left-layout .col-main {

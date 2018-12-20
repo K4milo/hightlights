@@ -1,0 +1,149 @@
+<form action="<?php echo $this->getUrl('pqrs/index/post'); ?>" id="pqrsform" method="post">
+    <ul class="form-list col-xs-12 col-sm-6 col-lg-6">
+        <li>
+            <div class="field">
+                <label for="profesion" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Tipo') ?></label>
+                <div class="input-box">
+                    <select name="tipo" id="tipo" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Tipo')) ?>">
+                        <option value="">-Selecciona-</option>
+                        <option value="Peticion">Petición</option>
+                        <option value="Queja">Queja</option>
+                        <option value="Reclamo">Reclamo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <label for="acerca" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Acerca de') ?></label>
+                <div class="input-box">
+                    <select name="acerca" id="acerca" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Acerca de')) ?>">
+                        <option value="">-Selecciona-</option>
+                        <option value="Producto">Producto</option>
+                        <option value="Servicio">Servicio</option>
+                        <option value="Datos Personales">Datos Personales</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li class="fields">
+            <div class="field">
+                <label for="name" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Name') ?></label>
+                <div class="input-box">
+                    <input name="name" id="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                </div>
+            </div>
+            <div class="field">
+                <label for="surname" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Apellido') ?></label>
+                <div class="input-box">
+                    <input name="surname" id="surname" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Apellido')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                </div>
+            </div>
+            <div class="field">
+                <label for="tipodocu"><?php echo Mage::helper('contacts')->__('Tipo de Documento') ?></label>
+                <div class="input-box">
+                    <select name="tipodocu" id="tipodocu" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Tipo de Documento')) ?>">
+                        <option value="">-Selecciona-</option>
+                        <option value="Producto">CC</option>
+                        <option value="Servicio">Cédula de Extranjería</option>
+                        <option value="Datos Personales">Pasaporte</option>
+                        <option value="Datos Personales">NIT</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <label for="numdocu"><?php echo Mage::helper('contacts')->__('Número de Documento') ?></label>
+                <div class="input-box">
+                    <input name="numdocu" id="numdocu" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Número de Documento')) ?>" value="" class="input-text" type="text" />
+                </div>
+                
+            </div>
+            <div class="field">
+                <label for="empresa"><?php echo Mage::helper('contacts')->__('Empresa') ?></label>
+                <div class="input-box">
+                    <input name="empresa" id="empresa" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Empresa')) ?>" value="" class="input-text" type="text" />
+                </div>
+            </div>
+            
+        </li>
+    </ul>
+    <ul class="form-list col-xs-12 col-sm-6 col-lg-6">
+        <li>
+            <div class="field">
+                <label for="email" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Email') ?></label>
+                <div class="input-box">
+                    <input name="email" id="email" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Email')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                </div>
+            </div>
+            <label for="telephone" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Telephone') ?></label>
+            <div class="input-box">
+                <input name="telephone" id="telephone" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Telephone')) ?>" value="" class="input-text" type="tel" />
+            </div>
+        </li>
+        <li>
+            <label for="ciudad" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Ciudad') ?></label>
+            <div class="input-box">
+                <input name="ciudad" id="ciudad" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Ciudad')) ?>" value="" class="input-text" type="text" />
+            </div>
+        </li>
+        <li>
+            <div class="field">
+                <label for="profesion" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Sector de actividad') ?></label>
+                <div class="input-box">
+                    <select name="profesion" id="profesion" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Sector de actividad')) ?>">
+                        <option value="">-Selecciona-</option>
+                        <option value="Arquitecto">Arquitecto</option>
+                        <option value="Constructora">Constructora</option>
+                        <option value="Ingeniero Electrónico">Ingeniero Electrónico</option>
+                        <option value="Ingeniero Industrial">Ingeniero Industrial</option>
+                        <option value="Diseñador">Diseñador</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <label for="temas" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Temas de Interés') ?></label>
+                <div class="input-box">
+                    <select name="temas" id="temas" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Temas de Interés')) ?>">
+                        <option value="">-Selecciona-</option>
+                        <option value="Iluminación">Iluminación</option>
+                        <option value="Instalación">Instalación</option>
+                        <option value="Servicio al cliente">Servicio al cliente</option>
+                        <option value="Programación">Programación</option>
+                        <option value="Consultoría">Consultoría</option>
+                        <option value="Automatización">Automatización</option>
+                        <option value="Tensoflex">Tensoflex</option>
+                        <option value="BackLights">BackLights</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li>
+            <label for="attachment"><?php echo Mage::helper('contacts')->__('Adjunto') ?></label>
+            <div class="input-box">
+                <input name="MAX_FILE_SIZE" type="hidden" value="2000000" />
+                <input name="attachment" id="attachment" style="width: 365px; max-width: 100%;" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Adjunto')) ?>" value="" class="input-text" type="file" />
+            </div>
+        </li>
+        <li class="wide">
+            <label for="comment" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Comment') ?></label>
+            <div class="input-box">
+                <textarea name="comment" id="comment" style="width: 365px; max-width: 100%;" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+            </div>
+        </li>
+        <li>
+            <small>Los tiempos de respuesta, están sujetos a lo establecido en la Ley 1581 de 2012, para datos personales y/o Ley 1480 del 2011 (Estatuto del Consumidor) para productos y servicios.</small>
+        </li>
+        <span class="avoid-spam">
+            <?php
+                echo $this->getChildHtml('form_fields_before'); 
+            ?>
+        </span>
+    </ul>
+
+    <button class="form-button-alt" type="submit"><span>Submit Your Request</span></button>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+        var pqrsform = new VarienForm('pqrsform', true);
+    //]]>   
+</script>
